@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration status="error">
+    <!--The first definition of all appender-->
+    <appenders>
+        <!--The output console configuration-->
+        <Console name="Console" target="SYSTEM_OUT">
+            <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>
+            <!--This all know is the output log format-->
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} %-5level %class{36} %L %M - %msg%xEx%n"/>
+        </Console>
+        <RollingFile name="RollingFile" fileName="logs/resource_scheduler.log"
+                     filePattern="log/$${date:yyyy-MM}/resource_scheduler-%d{MM-dd-yyyy}-%i.log.gz">
+            <PatternLayout pattern="%d{yyyy-MM-dd 'at' HH:mm:ss z} %-5level %class{36} %L %M - %msg%xEx%n"/>
+            <SizeBasedTriggeringPolicy size="50MB"/>
+        </RollingFile>
+    </appenders>
+    <loggers>
+        <root level="trace">
+            <appender-ref ref="RollingFile"/>
+            <appender-ref ref="Console"/>
+        </root>
+
+    </loggers>
+</configuration>
